@@ -98,7 +98,7 @@
 DROP TABLE IF EXISTS movie;
 DROP TABLE IF EXISTS studio;
 DROP TABLE IF EXISTS actor;
-DROP TABLE IF EXISTS cast;
+DROP TABLE IF EXISTS character;
 DROP TABLE IF EXISTS agent;
 -- Create new tables, according to your domain model
 -- TODO!
@@ -106,12 +106,47 @@ CREATE TABLE movie (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   title TEXT,
   year_released INTEGER,
-  MPAA_rating TEXT
+  MPAA_rating TEXT,
+  studio_name TEXT
+);
+
+CREATE TABLE studio (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT,
+  movie_id INTEGER
+);
+
+CREATE TABLE actor (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  last_name TEXT,
+  first_name TEXT,
+  movie_id INTEGER,
+  agent_id INTEGER
+);
+
+CREATE TABLE agent (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  last_name TEXT,
+  first_name TEXT,
+  actor_id INTEGER
+);
+
+CREATE TABLE character (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  last_name TEXT,
+  first_name TEXT,
+  movie_id INTEGER,
+  actor_id INTEGER
 );
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
 -- TODO!
-
+INSERT INTO movie
+VALUES (1,"Batman Begins", 2005, "PG-13","Warner Bros.");
+INSERT INTO movie
+VALUES (2,"The Dark Knight",2008, "PG-13","Warner Bros.");
+INSERT INTO movie
+VALUES (3,"The Dark Knight Rises",2012, "PG-13","Warner Bros.");
 -- Prints a header for the movies output
 .print "Movies"
 .print "======"
