@@ -106,47 +106,99 @@ CREATE TABLE movie (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   title TEXT,
   year_released INTEGER,
-  MPAA_rating TEXT,
+  mpaa_rating TEXT,
   studio_name TEXT
 );
 
 CREATE TABLE studio (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT,
-  movie_id INTEGER
+  studio_name TEXT,
+  movie_title TEXT
 );
 
 CREATE TABLE actor (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  last_name TEXT,
-  first_name TEXT,
-  movie_id INTEGER,
-  agent_id INTEGER
+  actor_name TEXT,
+  movie_title TEXT,
+  agent_name TEXT
 );
 
 CREATE TABLE agent (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  last_name TEXT,
-  first_name TEXT,
-  actor_id INTEGER
+  agent_name TEXT,
+  actor_name TEXT
 );
 
 CREATE TABLE character (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  last_name TEXT,
-  first_name TEXT,
-  movie_id INTEGER,
-  actor_id INTEGER
+  character_name TEXT,
+  movie_title TEXT,
+  actor_name TEXT
 );
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
 -- TODO!
-INSERT INTO movie
-VALUES (1,"Batman Begins", 2005, "PG-13","Warner Bros.");
-INSERT INTO movie
-VALUES (2,"The Dark Knight",2008, "PG-13","Warner Bros.");
-INSERT INTO movie
-VALUES (3,"The Dark Knight Rises",2012, "PG-13","Warner Bros.");
+INSERT INTO movie (id, title, year_released, mpaa_rating, studio_name) 
+VALUES (1, 'Batman Begins', 2005, 'PG-13', 'Warner Bros.');
+INSERT INTO movie (id, title, year_released, mpaa_rating, studio_name) 
+VALUES (2, 'The Dark Knight', 2008, 'PG-13', 'Warner Bros.');
+INSERT INTO movie (id, title, year_released, mpaa_rating, studio_name) 
+VALUES (3, 'The Dark Knight Rises', 2012, 'PG-13', 'Warner Bros.');
+
+INSERT INTO character (id, actor_name, character_name, movie_title)
+VALUES (1,'Christian Bale','Bruce Wayne', 'Batman Begins');
+INSERT INTO character (id, actor_name, character_name, movie_title)
+VALUES (2,'Michael Caine','Alfred', 'Batman Begins');
+INSERT INTO character (id, actor_name, character_name, movie_title)
+VALUES (3,'Liam Neeson',"Ra's Al Ghul", 'Batman Begins');
+INSERT INTO character (id, actor_name, character_name, movie_title)
+VALUES (4,'Katie Holems','Rachel Dawes', 'Batman Begins');
+INSERT INTO character (id, actor_name, character_name, movie_title)
+VALUES (5,'Gary Oldman','Commissioner Gordon', 'Batman Begins');
+
+INSERT INTO character (id, actor_name, character_name, movie_title)
+VALUES (6,'Christian Bale','Bruce Wayne', 'The Dark Knight');
+INSERT INTO character (id, actor_name, character_name, movie_title)
+VALUES (7,'Heath Ledger','Joker', 'The Dark Knight');
+INSERT INTO character (id, actor_name, character_name, movie_title)
+VALUES (8,'Aaron Eckhart','Harvey Dent', 'The Dark Knight');
+INSERT INTO character (id, actor_name, character_name, movie_title)
+VALUES (9,'Michael Caine','Alfred', 'The Dark Knight');
+INSERT INTO character (id, actor_name, character_name, movie_title)
+VALUES (10,'Maggie Gylenhaal','Rachel Dawes', 'The Dark Knight');
+
+INSERT INTO character (id, actor_name, character_name, movie_title)
+VALUES (11,'Christian Bale','Bruce Wayne', 'The Dark Knight Rises');
+INSERT INTO character (id, actor_name, character_name, movie_title)
+VALUES (12,'Gary Oldman','Commissioner Gordon', 'The Dark Knight Rises');
+INSERT INTO character (id, actor_name, character_name, movie_title)
+VALUES (13,'Tom Hardy','Bane', 'The Dark Knight Rises');
+INSERT INTO character (id, actor_name, character_name, movie_title)
+VALUES (14,'Joseph Gordon-Levitt','John Blake', 'The Dark Knight Rises');
+INSERT INTO character (id, actor_name, character_name, movie_title)
+VALUES (15,'Anne Hathaway','Selina Kyle', 'The Dark Knight Rises');
+
+INSERT INTO agent (id, agent_name, actor_name)
+VALUES (1, "Agent A", "Christian Bale");
+INSERT INTO agent (id, agent_name, actor_name)
+VALUES (2, "Agent B", "Michael Caine");
+INSERT INTO agent (id, agent_name, actor_name)
+VALUES (3, "Agent C", "Liam Neeson");
+INSERT INTO agent (id, agent_name, actor_name)
+VALUES (4, "Agent D", "Gary Oldman");
+INSERT INTO agent (id, agent_name, actor_name)
+VALUES (5, "Agent E", "Heath Ledger");
+INSERT INTO agent (id, agent_name, actor_name)
+VALUES (6, "Agent F", "Aaron Eckhart");
+INSERT INTO agent (id, agent_name, actor_name)
+VALUES (7, "Agent G", "Maggie Gylenhaal");
+INSERT INTO agent (id, agent_name, actor_name)
+VALUES (8, "Agent H", "Tom Hardy");
+INSERT INTO agent (id, agent_name, actor_name)
+VALUES (9, "Agent I", "Joseph Gordon-Levitt");
+INSERT INTO agent (id, agent_name, actor_name)
+VALUES (10, "Agent J", "Anne Hathaway");
+
 -- Prints a header for the movies output
 .print "Movies"
 .print "======"
@@ -154,6 +206,9 @@ VALUES (3,"The Dark Knight Rises",2012, "PG-13","Warner Bros.");
 
 -- ***TODO!***
 -- The SQL statement for the movies output goes here.
+SELECT title, year_released, mpaa_rating, studio_name
+FROM movie
+ORDER BY year_released;
 
 -- Example output:
 -- Movies
@@ -170,7 +225,9 @@ VALUES (3,"The Dark Knight Rises",2012, "PG-13","Warner Bros.");
 
 -- ***TODO!***
 -- The SQL statement for the cast output goes here.
-
+SELECT movie_title, actor_name, character_name
+FROM character
+ORDER BY id;
 -- Example output:
 -- Top Cast
 -- ========
@@ -198,7 +255,9 @@ VALUES (3,"The Dark Knight Rises",2012, "PG-13","Warner Bros.");
 
 -- ***TODO!***
 -- The SQL statement for the represented actor(s) output goes here.
-
+SELECT actor_name
+FROM agent
+WHERE agent_name = "Agent A";
 -- Example output:
 -- Represented by agent
 -- ====================
